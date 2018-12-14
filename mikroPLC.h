@@ -119,7 +119,9 @@ int8 symbols[12] = { PLC_I1, PLC_I2, PLC_I3, PLC_I4, PLC_I5, PLC_I6, PLC_I7,
 const char commands_text[9][4] = {"LD", "LDN", "A", "AN", "ALD", "O", "ON", "OLD", "="};
 const char symbols_text[13][3] = {"I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "Q1",
                                  "Q2", "Q3", "Q4", "T0"};
-                                                  
+      
+//////////////////////////Forward Declarations///////////////////////////////////                                                 
+
 int8 plc_get_command(int8 instr);
 int8 plc_get_symbol(int8 instr);
 

@@ -101,7 +101,7 @@
 #endif
 
 /////////////////////////////Menu Variables////////////////////////////////////
-const char MENU_OPTIONS[6][25] = {">Ejecutar\n Programa", ">Revisar\n Instrucciones", ">Conectar a PC", ">Cargar\n Ejemplo 1", ">Cargar\n Ejemplo 2", ">Borrar\n Programa"};
+const char MENU_OPTIONS[6][25] = {">Execute\n Program", ">Review\n Instructions", ">Connect to PC", ">Load\n Example 1", ">Load\n Example 2", ">Remove\n Program"};
 
 ///////////////////////////LD List Variables///////////////////////////////////
 #ifdef USE_2404

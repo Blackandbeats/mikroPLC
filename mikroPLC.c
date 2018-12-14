@@ -96,19 +96,19 @@ void plc_process_instr(int8 instr)
 
 void msg_loading()
 {
-   printf (lcd_putc, "\fCargando...");
+   printf (lcd_putc, "\fLoading...");
 }
 
 void msg_writing_succesfull()
 {
-   printf (lcd_putc, "\fEscritura\nCompletada");
+   printf (lcd_putc, "\fWriting\nComplete");
    Delay_ms (DELAY_MESSAGE_MS) ;
    lcd_putc ("\f") ;
 }
 
 void msg_no_program()
 {
-   printf (lcd_putc, "\fNo hay ningun\nprograma cargado");
+   printf (lcd_putc, "\fNo Program Loaded");
    Delay_ms (DELAY_MESSAGE_MS) ;
    lcd_putc ("\f") ;
 }
@@ -295,7 +295,7 @@ void plc_connect_to_pc()
    int1 rcv_write_flag = 0;
    int1 rcv_read_flag = 0;
    
-   printf (lcd_putc, "\fEsperando USB...");
+   printf (lcd_putc, "\fWaiting for USB");
    
    while (TRUE)
    {
@@ -303,7 +303,7 @@ void plc_connect_to_pc()
       if (usb_enumerated () )
       {
          lcd_gotoxy (1, 1);
-         printf (lcd_putc, "Conectado \n");
+         printf (lcd_putc, "\fConnected\n");
 
          if (usb_kbhit (USB_HID_ENDPOINT))
          {
@@ -314,14 +314,14 @@ void plc_connect_to_pc()
                
                if (in_data[0] == 0x33)
                {
-                  printf (lcd_putc, "Activado: W");
+                  printf (lcd_putc, "Mode: W");
                   rcv_write_flag = 1;
                }
 
                
                else if (in_data[0] == 0x22)
                {
-                  printf (lcd_putc, "Activado: R");
+                  printf (lcd_putc, "Mode: R");
                   rcv_read_flag = 1;
                }
 

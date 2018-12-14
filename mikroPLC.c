@@ -178,12 +178,14 @@ void plc_run_code()
 {
    msg_loading () ;
    
-   EEPROM_ADDRESS number_of_lines = 0;
-   
    int8 loaded_code[512] = {};
+   EEPROM_ADDRESS number_of_lines = 0x00;
    
-   while ((loaded_code[number_of_lines] = read_ext_eeprom (number_of_lines) ) != 0xFF)
-   number_of_lines++;
+   while (loaded_code[number_of_lines] != 0xFF)
+   {
+      loaded_code[number_of_lines] = read_ext_eeprom (number_of_lines);
+      number_of_lines++;
+   }
    
    if (number_of_lines == 0)
    {
@@ -240,22 +242,25 @@ void plc_show_line(EEPROM_ADDRESS address, int8 command, int8 symbol)
 void plc_review_code()
 {
    msg_loading () ;
-   EEPROM_ADDRESS cur_code_line = 0;
-   EEPROM_ADDRESS number_of_lines = 0;
    
    int8 loaded_code[512] = {};
+   EEPROM_ADDRESS number_of_lines = 0x00;
    
-   while ((loaded_code[number_of_lines] = read_ext_eeprom (number_of_lines) ) != 0xFF)
-   number_of_lines++;
+   while (loaded_code[number_of_lines] != 0xFF)
+   {
+      loaded_code[number_of_lines] = read_ext_eeprom (number_of_lines);
+      number_of_lines++;
+   }
    
    if (number_of_lines == 0)
    {
       msg_no_program () ;
       return;
    }
-
    
-   plc_show_line (cur_code_line, plc_get_command (loaded_code[cur_code_line]), plc_get_symbol (loaded_code[cur_code_line]));
+   EEPROM_ADDRESS cur_code_line = 0;
+   plc_show_line (cur_code_line, plc_get_command (loaded_code[cur_code_line]), 
+                                 plc_get_symbol (loaded_code[cur_code_line]));
    
    while (1)
    {
@@ -263,14 +268,16 @@ void plc_review_code()
       if (input (UP) && (cur_code_line > 0) )
       {
          --cur_code_line;
-         plc_show_line (cur_code_line, plc_get_command (loaded_code[cur_code_line]), plc_get_symbol (loaded_code[cur_code_line]));
+         plc_show_line (cur_code_line, plc_get_command (loaded_code[cur_code_line]), 
+                                       plc_get_symbol (loaded_code[cur_code_line]));
          Delay_ms (DELAY_BUTTON_PRESS_MS) ;
       }
 
       else if (input (DOWN) && (cur_code_line < (number_of_lines - 1) ))
       {
          ++cur_code_line;
-         plc_show_line (cur_code_line, plc_get_command (loaded_code[cur_code_line]), plc_get_symbol (loaded_code[cur_code_line]));
+         plc_show_line (cur_code_line, plc_get_command (loaded_code[cur_code_line]), 
+                                       plc_get_symbol (loaded_code[cur_code_line]));
          Delay_ms (DELAY_BUTTON_PRESS_MS) ;
       }
       

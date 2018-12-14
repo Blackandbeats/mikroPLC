@@ -303,7 +303,7 @@ void plc_connect_to_pc()
       if (usb_enumerated () )
       {
          lcd_gotoxy (1, 1);
-         printf (lcd_putc, "\fConnected\n");
+         printf (lcd_putc, "Connected       \n");
 
          if (usb_kbhit (USB_HID_ENDPOINT))
          {
@@ -385,7 +385,7 @@ void plc_erase()
 
 void show_menu_option(int8 option)
 {
-   printf (lcd_putc, "\f %s", MENU_OPTIONS[option]);
+   printf (lcd_putc, "\f%s", MENU_OPTIONS[option]);
    Delay_ms (DELAY_BUTTON_PRESS_MS) ;
 }
 

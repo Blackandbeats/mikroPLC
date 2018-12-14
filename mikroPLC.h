@@ -81,6 +81,8 @@
    #include "internal_eeprom.c"
 #else
    #ifdef USE_2404
+      #define EEPROM_SDA  PIN_B1
+      #define EEPROM_SCL  PIN_B0
       #include "2404.c"
    #endif
 #endif

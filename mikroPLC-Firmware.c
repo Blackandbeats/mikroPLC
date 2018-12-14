@@ -1,6 +1,8 @@
 //#define USE_EXT_EEPROM
 //#define USE_2404
 
+//#define USE_LCD_I2C
+
 #include <mikroPLC.c>
 
 void main()

@@ -1,3 +1,5 @@
+//#define USE_EXT_EEPROM
+//#define USE_2404
 
 #include <mikroPLC.c>
 

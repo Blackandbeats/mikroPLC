@@ -210,7 +210,7 @@ void plc_run_code()
 
       
       lcd_gotoxy (1, 1);
-      printf (lcd_putc, "Q1: % u Q2: % u\nQ3: % u Q4: % u", input (symbols[8]), input (symbols[9]), input (symbols[10]), input (symbols[11]));
+      printf (lcd_putc, "Q1: %u Q2: %u\nQ3: %u Q4: %u", input (symbols[8]), input (symbols[9]), input (symbols[10]), input (symbols[11]));
    }
 
 }
@@ -222,17 +222,17 @@ void plc_show_line(EEPROM_ADDRESS address, int8 command, int8 symbol)
    
    #ifndef USE_EXT_EEPROM
    if ((command == CMD_ALD) || (command == CMD_OLD) )
-   printf (lcd_putc, " % u - %s", address + 1, commands_text[command]);
+   printf (lcd_putc, " %u - %s", address + 1, commands_text[command]);
 
    else
-   printf (lcd_putc, " % u - %s %s", address + 1, commands_text[command], symbols_text[symbol]);
+   printf (lcd_putc, " %u - %s %s", address + 1, commands_text[command], symbols_text[symbol]);
 
    #else
    if ((command == CMD_ALD) || (command == CMD_OLD) )
-   printf (lcd_putc, " % Lu - %s", address + 1, commands_text[command]);
+   printf (lcd_putc, " %Lu - %s", address + 1, commands_text[command]);
 
    else
-   printf (lcd_putc, " % Lu - %s %s", address + 1, commands_text[command], symbols_text[symbol]);
+   printf (lcd_putc, " %Lu - %s %s", address + 1, commands_text[command], symbols_text[symbol]);
 
    #endif
 }
@@ -344,7 +344,7 @@ void plc_connect_to_pc()
             
             EEPROM_ADDRESS number_of_lines = 0;
             
-            while (read_ext_eeprom (number_of_lines) ! = 0xFF)
+            while (read_ext_eeprom (number_of_lines) != 0xFF)
             number_of_lines++;
             
             for (EEPROM_ADDRESS i = 0; i <= number_of_lines; i++)
@@ -378,7 +378,7 @@ void plc_erase()
 
 void show_menu_option(int8 option)
 {
-   printf (lcd_putc, "\f % s", MENU_OPTIONS[option]);
+   printf (lcd_putc, "\f %s", MENU_OPTIONS[option]);
    Delay_ms (DELAY_BUTTON_PRESS_MS) ;
 }
 

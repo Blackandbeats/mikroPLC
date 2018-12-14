@@ -3,41 +3,6 @@
 ////                                                                    ////
 //// Main Configuration of the mikroPLC firmware.                       ////
 ////////////////////////////////////////////////////////////////////////////
-////                                                                    ////
-////  Version History:                                                  ////
-////                                                                    ////
-////  Oct 24th, 2018:                                                   ////
-////     First Version.                                                 ////
-////                                                                    ////
-////  Oct 27th, 2018:                                                   ////
-////     -Added boolean variable rcv_write_flag to control the          ////
-////      write-in-progress state while working with the USB connection.////
-////                                                                    ////
-////  Oct 28th, 2018:                                                   ////
-////     -Added constant DELAY_SEND_BYTE_TO_PC that allows to set a     ////
-////      delay for sending a byte to the PC through the TX Endpoint.    ////
-////                                                                    ////
-////  Oct 30th, 2018:                                                   ////
-////     -Added array loaded_code to store the code loaded from the     ////
-////      EEEPROM to access it at the maximum possible speed.           ////
-////                                                                    ////
-////  Oct 31st, 2018:                                                   ////
-////     -Added I2C section for configuration on that protocol.         ////
-////     -Added DELAY_I2C definition to configure a time delay          ////
-////      for every I2C operation.                                      ////
-////     -Now loaded_code, list_LD and cur_LD variables have a          ////
-////      conditional size depending on the size of the memory.         ////
-////     -Added function prototypes to this header file.                ////
-////     -Added documentation for some functions.                       ////
-////                                                                    ////
-////  Nov 2nd, 2018:                                                    ////
-////     -Text Arrays changed to constants for optimization purposes.   ////
-////     -cur_code_line and number_of_lines variables moved to the      ////
-////      functions in mikroPLC.c that use them to keep them on an      ////
-////      appropriate scope.                                            ////
-////     -loaded_code array also moved to a function scope.             ////
-////                                                                    ////
-////////////////////////////////////////////////////////////////////////////
 ////              (C) Copyright 2018 Willians Briceño                   ////
 ////////////////////////////////////////////////////////////////////////////
 
@@ -154,136 +119,36 @@ int8 symbols[12] = { PLC_I1, PLC_I2, PLC_I3, PLC_I4, PLC_I5, PLC_I6, PLC_I7,
 const char commands_text[9][4] = {"LD", "LDN", "A", "AN", "ALD", "O", "ON", "OLD", "="};
 const char symbols_text[13][3] = {"I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "Q1",
                                  "Q2", "Q3", "Q4", "T0"};
-                           
-  
-/****************************************************************************
-/* plc_get_command(instruction)
-/*
-/* Input: instruction - Byte to extract the command value from.
-/*
-/* Output: 8 bit command value.
-/*
-/* Summary: Returns the 8 bit representation of a mikroPLC command according
-/*          to its index on the "commands_text" array and which
-/*          coincides with the CMD_x macro definitions..         
-/*
-/*****************************************************************************/                         
+                                                  
 int8 plc_get_command(int8 instr);
-
-/****************************************************************************
-/* plc_get_symbol(instruction)
-/*
-/* Input: instruction - Byte to extract the symbol value from.
-/*
-/* Output: 8 bit symbol value.
-/*
-/* Summary: Returns the 8 bit representation of a mikroPLC symbol according
-/*          to its correspoding index on the "symbols_text" array.
-/*
-/*****************************************************************************/
 int8 plc_get_symbol(int8 instr);
 
-/****************************************************************************
-/* exec_ld(value)
-/*
-/* Input: value - Single bit value to be loaded into the list_LD array.
-/*
-/* Summary: Loads a value into the "Loaded" list so it can be operated 
-/*          with additional mikroPLC commands.
-/*
-/*****************************************************************************/
 void exec_ld(int1 val);
-
-/****************************************************************************
-/* exec_ldn(value)
-/*
-/* Input: value - Single bit value to be loaded into the list_LD array.
-/*
-/* Summary: Performs a "NOT" operation to the value and the result is stored  
-/*          in the "Loaded" list so it can be operated with additional 
-/*          mikroPLC commands.
-/*
-/*****************************************************************************/
 void exec_ldn(int1 val);
-
-/****************************************************************************
-/* exec_a(value)
-/*
-/* Input: value - Single bit to be operated with the "AND" logical function.
-/*
-/* Summary: Performs an "AND" operation between the passed value and the
-/*          last bit loaded on list_LD and saves the resultant value 
-/*          into the current cursor position on LD.
-/*
-/*****************************************************************************/
 void exec_a(int1 val);
-
-/****************************************************************************
-/* exec_an(value)
-/*
-/* Input: value - Single bit to be operated with an "AND-NOT" logical function.
-/*
-/* Summary: Performs an "AND-NOT" operation between the passed value and the
-/*          last bit loaded on list_LD and saves the resultant value 
-/*          into the current cursor position on LD.
-/*
-/*****************************************************************************/
 void exec_an(int1 val);
-
-/****************************************************************************
-/* exec_ald()
-/*
-/* Summary: Performs an "AND" operation between the last two values loaded
-/*          on list_LD, saves the result into the lowest of those two
-/*          positions and decreases the current cursor position by 1.
-/*
-/*****************************************************************************/
 void exec_ald();
-
-/****************************************************************************
-/* exec_o(value)
-/*
-/* Input: value - Single bit to be operated with the "OR" logical function.
-/*
-/* Summary: Performs an "OR" operation between the passed value and the
-/*          last bit loaded on list_LD and saves the resultant value 
-/*          into the current cursor position on LD.
-/*
-/*****************************************************************************/
 void exec_o(int1 val);
-
-/****************************************************************************
-/* exec_on(value)
-/*
-/* Input: value - Single bit to be operated with the "ORN" logical function.
-/*
-/* Summary: Performs an "OR" operation between the passed value and the
-/*          last bit loaded on list_LD and saves the resultant value 
-/*          into the current cursor position on LD.
-/*
-/*****************************************************************************/
 void exec_on(int1 val);
-
-/****************************************************************************
-/* exec_old()
-/*
-/* Summary: Performs an "OR" operation between the last two values loaded
-/*          on list_LD, saves the result into the lowest of those two
-/*          positions and decreases the current cursor position by 1.
-/*
-/*****************************************************************************/
 void exec_old();
 void exec_out(int8 output);
+
 void plc_process_instr(int8 instr);
+
 void msg_loading();
 void msg_writing_succesfull();
 void msg_no_program();
+
 void plc_write_example();
 void plc_write_example_2();
+
 void plc_run_code();
 void plc_show_line(EEPROM_ADDRESS address);
 void plc_review_code();
+
 void plc_connect_to_pc();
+
 void plc_erase();
+
 void show_menu_option();
 void enter_menu_option();

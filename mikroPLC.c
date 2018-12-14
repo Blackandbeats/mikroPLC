@@ -3,47 +3,10 @@
 ////                                                                    ////
 //// Main file of the source code for the mikroPLC firmware.            ////
 ////////////////////////////////////////////////////////////////////////////
-////                                                                    ////
-////  Version History:                                                  ////
-////                                                                    ////
-////  Oct 24th, 2018:                                                   ////
-////     First Version                                                  ////
-////                                                                    ////
-////  Oct 28th, 2018:                                                   ////
-////    -Subroutine plc_conect_to_pc() rewritten to work with USB HID   ////
-////     class instead of USB CDC.                                      ////
-////    -BACK button enabled in the USB menu.                           ////
-////    -Method usb_init() call moved to main project file.             ////
-////    -plc_connect_to_pc extended to allow sending the code in the    ////
-////     memory to the PC.                                              ////
-////                                                                    ////
-////  Oct 30th, 2018:                                                   ////
-////     -plc_run_code modified to dump the code into the RAM to work   ////
-////      with the loaded_code array instead of reading the EEPROM      ////
-////      continuously.                                                 ////
-////     -Routine for proccessing of instructions modified to work      ////
-////      with a switch-case structure instead of if-else.              ////
-////                                                                    ////
-////  Oct 30th, 2018:                                                   ////
-////     -EEPROM and I2C configuration definitions were moved here      ////
-////      from the header file.                                         ////
-////                                                                    ////
-////  Nov 2nd, 2018:                                                    ////
-////     -plc_get_command_text and plc_get_symbol_text removed, instead ////
-////      text values in the commands_text and symbols_text arrays are  ////
-////      accesed directly by index.                                    ////
-////                                                                    ////
-////////////////////////////////////////////////////////////////////////////
 ////              (C) Copyright 2018 Willians Briceño                   ////
 ////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////Header Configuration///////////////////////////////
-
-//#define  USE_EXT_EEPROM
-
-//#define  USE_2404
-
-//#define USE_LCD_I2C
 
 #include <mikroPLC.h>
 
@@ -138,17 +101,7 @@ void plc_write_example(){
 
 void plc_write_example_2(){
    msg_loading();
-   /*Inversor de Giro
-      I1 - OL
-      I2 - STOP
-      I3 - S1
-      I4 - S2
-      
-      Q1 - M1
-      Q2 - M2
-      Q3 - L1
-      Q4 - L2
-   */
+
    write_ext_eeprom(0x00, 0x10);                                                 //LDN I1
    write_ext_eeprom(0x01, 0x31);                                                 //AN  I2
    write_ext_eeprom(0x02, 0x02);                                                 //LD  I3

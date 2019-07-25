@@ -4,4 +4,4 @@ mikroPLC is a firmware for the Microchip's PIC18F4550 microcontroller which allo
 
 The firmware is compiled using the CCS PICC Compiler 5.0 and has been tested on a physical PIC18F4550 PIC microcontroller as well as in a digital simulation on Proteus 8.7.
 
-After loading the firmware, programs can be loaded into the Controller through usb using the mikroPLC-Loader Python script that translates a plain text file containing the Siemens Step7 Statement List to a bytecode that the PIC will interpret at runtime.
+After loading the firmware, programs can be loaded into the Controller through a USB connection using the mikroPLC-Loader Python script that translates a plain text file containing the Siemens Step7 Statement List to a bytecode that the PIC will write in the internal EEPROM and interpret at runtime. There's also the possibility to use an external I2C EEPROM memory.
